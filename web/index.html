@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Convertí el proceso de tu edición en un timelapse de tu timeline real.">
+  <title>TimelineLapse — The making of your edit.</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="TimelineLapse, inicio"><span class="mark"><i></i><i></i><i></i></span>timeline<span>lapse</span><sup>α</sup></a>
+    <span class="top-caption">THE MAKING OF YOUR EDIT.</span>
+    <nav><span class="local"><b></b> Procesamiento local</span><a href="https://github.com/brainbtz7-cell" target="_blank" rel="noopener">GitHub ↗</a></nav>
+  </header>
+  <div class="workspace">
+    <aside class="sidebar">
+      <div class="sidebar-title"><span class="eyebrow">TU PRÓXIMO BEHIND THE SCENES</span><h1>Mostrá cómo<br>nace tu edición<span>.</span></h1><p>Tu timeline real. Cada captura,<br>un paso de la historia.</p></div>
+      <section class="control-group">
+        <div class="section-label"><span>01</span> ELEGÍ TU TIMELINE</div>
+        <button id="chooseSource" class="source-button"><span class="window-icon">▣</span><strong>Elegir ventana</strong><span>↗</span></button>
+        <div id="sourceStatus" class="source-note">Elegí DaVinci y recortá la zona de pistas.</div>
+        <button id="recrop" class="text-button" hidden>Ajustar recorte</button>
+      </section>
+      <section class="control-group">
+        <div class="section-label"><span>02</span> CONFIGURÁ LA CAPTURA</div>
+        <label class="field-label" for="sessionTitle">Nombre de la sesión</label><input id="sessionTitle" maxlength="32" value="El arte de encontrar el corte" autocomplete="off">
+        <div class="field-row"><label for="interval">Una captura cada</label><select id="interval"><option value="1">1 segundo</option><option value="3" selected>3 segundos</option><option value="5">5 segundos</option><option value="10">10 segundos</option><option value="30">30 segundos</option></select></div>
+        <label class="toggle-row"><span>Omitir capturas casi iguales<small>Detecta cambios visuales, incluido el zoom.</small></span><input id="skipSimilar" type="checkbox" checked><span class="switch"></span></label>
+        <p class="hint">Mantené visible la timeline en la ventana compartida. La captura no incluye audio.</p>
+        <button id="recordButton" class="primary" disabled><span class="rec-dot"></span> Grabar mi edición</button>
+        <div class="record-actions" hidden id="recordActions"><button id="pauseButton" class="secondary">Pausar</button><button id="stopButton" class="stop">Finalizar ■</button></div>
+      </section>
+      <div class="sidebar-footer"><span class="tiny-icon">◇</span><p>DaVinci Free y Studio.<br>También sirve con otros editores.</p><button id="helpButton" aria-label="Cómo funciona">?</button></div>
+    </aside>
+    <main>
+      <div class="main-heading"><div><span class="eyebrow">DE LA PRIMERA IDEA AL ÚLTIMO CORTE</span><h2>Todo el proceso.<br><em>Un solo timelapse.</em></h2></div><button id="demoButton" class="demo-button">▶ Ver demo</button></div>
+      <section class="preview-panel" aria-label="Vista previa del timelapse">
+        <div class="preview-toolbar"><span id="sessionBadge" class="badge">DEMO ILUSTRATIVA</span><span id="frameCounter" class="mono">CAPTURA 01 / 48</span><span class="preview-resolution">LOCAL SESSION / 001</span></div>
+        <div class="preview-art" id="previewArt"><div class="art-top"><span>THE MAKING OF AN EDIT</span><span class="art-cross">+</span></div><h3 id="previewTitle">El arte de encontrar el corte</h3><div class="timeline-image"><img id="frameImage" alt="Captura de la timeline durante la edición"><div id="emptyState" hidden><span class="empty-icon">▤</span><strong>Tu primera captura empieza acá.</strong><p>Elegí la ventana de DaVinci y empezá a grabar.</p></div></div><div class="art-bottom"><span><b id="elapsedStat">2h 18m</b> de proceso</span><span id="imageDisclaimer">Demo simulada · no es una sesión tuya</span><span class="art-cross">+</span></div></div>
+        <div class="playback"><button id="playButton" aria-label="Reproducir timelapse">▶</button><span id="playTime" class="mono">00:00</span><input id="scrubber" type="range" min="0" max="47" value="0" aria-label="Recorrer las capturas"><span id="playDuration" class="mono">00:12</span><button id="fullscreen" aria-label="Ampliar vista previa">⛶</button></div>
+      </section>
+      <div class="bottom-grid">
+        <section class="session-card"><div class="card-heading"><span class="eyebrow">EL PROCESO, EN NÚMEROS</span><span id="liveState" class="state-label">VISTA PREVIA</span></div><div class="stat-grid"><div><strong id="captureStat">48</strong><span>capturas guardadas</span></div><div><strong id="skippedStat">—</strong><span>capturas omitidas</span></div><div><strong id="lengthStat">12<span>s</span></strong><span>tu timelapse</span></div></div><div class="session-links"><select id="sessionSelect" aria-label="Sesiones guardadas"><option value="demo">Demo incluida</option></select><a id="backupLink" hidden>Guardar capturas ↓</a></div></section>
+        <section class="export-card"><div class="card-heading"><span class="eyebrow">LISTO PARA COMPARTIR</span><span class="file-type">MP4 / H.264</span></div><div class="export-options"><label>Duración<select id="duration"><option value="6">6 segundos</option><option value="12" selected>12 segundos</option><option value="20">20 segundos</option><option value="30">30 segundos</option></select></label><label>Formato<select id="format"><option value="landscape">16:9 · Presentación</option><option value="portrait">9:16 · Vertical</option><option value="native">Solo timeline</option></select></label></div><button id="exportButton" class="export-button"><span>Exportar timelapse</span><span>↓</span></button><p id="exportStatus" aria-live="polite">Sin marca de agua. Las capturas quedan en tu equipo.</p><a id="downloadLink" class="download-link" hidden>Descargar MP4 ↓</a></section>
+      </div>
+      <footer class="main-footer"><span>HECHO PARA QUIENES AMAN EL PROCESO.</span><span>OPEN SOURCE · V0.1</span></footer>
+    </main>
+  </div>
+  <dialog id="cropDialog"><div class="dialog-heading"><div><span class="eyebrow">ENCUADRÁ EL PROCESO</span><h2>Solo tu timeline.</h2><p>Arrastrá sobre la imagen para seleccionar la zona que querés guardar.</p></div><button id="closeCrop" class="icon-button" aria-label="Cancelar selección">×</button></div><div id="cropArea"><video id="sourceVideo" autoplay muted playsinline></video><div id="cropShade"></div><div id="cropSelection"><span id="cropDimensions">Recorte</span><i></i><i></i><i></i><i></i></div></div><div class="crop-footer"><span id="cropHint">Podés volver a dibujar el recorte.</span><div><button id="fullCrop" class="secondary">Toda la ventana</button><button id="confirmCrop" class="primary">Usar este recorte ↗</button></div></div></dialog>
+  <dialog id="helpDialog"><div class="dialog-heading"><div><span class="eyebrow">UN REGISTRO DEL PROCESO</span><h2>De horas a segundos.</h2></div><button id="closeHelp" class="icon-button" aria-label="Cerrar ayuda">×</button></div><ol><li>Abrí la página Edit de DaVinci y acomodá las pistas.</li><li>En <b>Elegir ventana</b>, compartí la ventana de DaVinci. Dibujá el recorte alrededor de la timeline.</li><li>Presioná <b>Grabar mi edición</b> y volvé a editar. Mantené el navegador abierto y el equipo despierto.</li><li>Al terminar, volvé, finalizá la sesión y exportá el MP4.</li></ol><p>Chrome o Edge de escritorio recomendados. En macOS puede ser necesario habilitar grabación de pantalla para el navegador en Ajustes del Sistema.</p><p>Se guardan capturas del área visible que elegiste. No se lee ni modifica el proyecto y no se recupera historial anterior. Si cambia el encuadre, creá una sesión nueva.</p><p>Las sesiones se conservan en la carpeta local <code>.timelinelapse</code>. Podés descargar tus capturas con “Guardar capturas”.</p></dialog>
+  <div id="toast" role="status" hidden></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

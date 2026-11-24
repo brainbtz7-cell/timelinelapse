@@ -1,0 +1,20 @@
+name: Tests
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  local-server-and-exports:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: '3.12'
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Check Python syntax
+        run: python -m py_compile app.py tests/test_app.py tests/browser_fixture.py
+      - name: Test persistence, local API, and actual MP4 exports
+        run: python -m unittest discover -s tests -v
